@@ -70,6 +70,32 @@
         height: 35px;
         width: auto;
     }
+    nav.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 0 0 28px 0;
+}
+nav.tabs a {
+    font: 700 12.5pt/1em 'Nunito', sans-serif;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+    color: var(--periwinkle);
+    background: #f4eef7;
+    padding: 10px 26px;
+    border-radius: 999px;
+    border: 2px solid transparent;
+    transition: border-color 0.15s ease, color 0.15s ease;
+}
+nav.tabs a:hover {
+    color: var(--plum);
+    border-color: var(--lavender);
+}
+nav.tabs a.active {
+    color: var(--paper);
+    background: var(--plum);
+    box-shadow: 2px 3px 0px var(--lavender);
+}
     p {
         font: 400 15.5pt/1.65em 'Nunito', sans-serif;
         color: var(--ink);
@@ -107,6 +133,11 @@
     <div class="banner">
         <img src="photo-by-Jeff-Biege.jpg" alt="Ocean waves crashing against shoreline!">
     </div>
+    <nav class="tabs">
+    <a href="assignment1.html" class="active">Home</a>
+    <a href="assignment2.html">Video</a>
+    <a href="assignment3.html">Portfolio</a>
+</nav>
     <h1>Get to Know Me!</h1>
     <h2>Graphic Design Major &nbsp;&middot;&nbsp; Seamstress</h2>
     <div class="icon-row">
