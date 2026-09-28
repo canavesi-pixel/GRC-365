@@ -1,0 +1,323 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Portfolio Table</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --navy: #2c3968;
+        --plum: #453257;
+        --teal: #3f7686;
+        --periwinkle: #6f6f9c;
+        --lavender: #8f93c0;
+        --ink: #3d3a3f;
+        --paper: #fffdf9;
+    }
+    body {
+        background: linear-gradient(160deg, #eef2f7 0%, #f4eef7 100%);
+        margin: 0;
+        padding: 48px 0;
+    }
+    #page {
+        width: 1024px;
+        min-height: 1224px;
+        background: var(--paper);
+        margin: 0 auto;
+        padding: 0 64px 64px 64px;
+        box-sizing: border-box;
+        box-shadow: 5px 8px 20px rgba(45, 57, 104, 0.3), 0 0 0 1px rgba(45, 57, 104, 0.08);
+        display: flex;
+        flex-direction: column;
+    }
+    .banner {
+        width: calc(100% + 128px);
+        height: 220px;
+        margin: 0 -64px 40px -64px;
+        overflow: hidden;
+    }
+    .banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    nav.tabs {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin: 0 0 44px 0;
+    }
+    nav.tabs a {
+        font: 700 12.5pt/1em 'Nunito', sans-serif;
+        letter-spacing: 0.3px;
+        text-decoration: none;
+        color: var(--periwinkle);
+        background: #f4eef7;
+        padding: 10px 26px;
+        border-radius: 999px;
+        border: 2px solid transparent;
+        transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    nav.tabs a:hover {
+        color: var(--plum);
+        border-color: var(--lavender);
+    }
+    nav.tabs a.active {
+        color: var(--paper);
+        background: var(--plum);
+        box-shadow: 2px 3px 0px var(--lavender);
+    }
+    h1 {
+        font: 700 56pt/1.0em 'Baloo 2', cursive;
+        text-align: center;
+        color: var(--plum);
+        text-shadow: 3px 3px 0px var(--lavender);
+        margin: 0;
+    }
+    p.intro {
+        text-align: center;
+        font: 600 15pt/1.5em 'Nunito', sans-serif;
+        color: var(--ink);
+        max-width: 620px;
+        margin: 8px auto 30px auto;
+    }
+    .highlight {
+        color: var(--teal);
+        font-weight: 700;
+    }
+    table.works {
+        width: 100%;
+        margin: 0 auto;
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 1px solid #cfcde0;
+        border-radius: 14px;
+        box-shadow: 2px 3px 6px rgba(69, 50, 87, 0.25);
+        font: 400 15pt/1.4em 'Nunito', sans-serif;
+        color: var(--ink);
+    }
+    table.works th {
+        position: sticky;
+        top: 0;
+        background: var(--plum);
+        color: var(--paper);
+        font: 700 14pt/1.2em 'Nunito', sans-serif;
+        letter-spacing: 0.5px;
+        text-align: left;
+        padding: 16px 14px;
+    }
+    table.works th:first-child { border-top-left-radius: 13px; }
+    table.works th:last-child { border-top-right-radius: 13px; }
+    table.works th:nth-child(1) { width: 90px; }
+    table.works th:nth-child(4) { width: 90px; }
+    table.works thead { background: var(--plum); }
+    table.works td {
+        padding: 12px 14px;
+        vertical-align: middle;
+    }
+    table.works td.title {
+        font-size: 15pt;
+        font-weight: 700;
+    }
+    table.works tbody tr:nth-child(odd) { background: #f4eef7; }
+    table.works tbody tr:nth-child(odd) td { color: var(--navy); }
+    table.works tbody tr:nth-child(odd) td.title { color: var(--plum); }
+    table.works tbody tr:nth-child(even) { background: var(--paper); }
+    table.works tbody tr:nth-child(even) td { color: #2f5866; }
+    table.works tbody tr:nth-child(even) td.title { color: var(--teal); }
+    table.works tbody tr:hover { background: #e6e7f3; }
+    table.works tbody tr:last-child td:first-child { border-bottom-left-radius: 13px; }
+    table.works tbody tr:last-child td:last-child { border-bottom-right-radius: 13px; }
+    .row-thumb {
+        display: block;
+        width: 96px;
+        height: 96px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 2px 3px 6px rgba(69, 50, 87, 0.3);
+        transition: transform 0.25s ease;
+    }
+    a.thumb-cell:hover .row-thumb { transform: scale(1.08); }
+    a.thumb-cell { display: block; cursor: zoom-in; }
+    .lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(44, 57, 104, 0.88);
+        z-index: 999;
+        justify-content: center;
+        align-items: center;
+        cursor: zoom-out;
+    }
+    .lightbox.active { display: flex; }
+    .lightbox-img {
+        max-width: 90vw;
+        max-height: 90vh;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        cursor: default;
+    }
+    .lightbox-close {
+        position: absolute;
+        top: 24px;
+        right: 36px;
+        font: 700 32px/1 'Nunito', sans-serif;
+        color: var(--paper);
+        cursor: pointer;
+    }
+    .alt-portfolio-wrap {
+        display: flex;
+        justify-content: center;
+        margin: 40px 0 0 0;
+    }
+    .alt-portfolio-btn {
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
+        font: 700 12.5pt/1em 'Nunito', sans-serif;
+        color: var(--paper);
+        background: linear-gradient(135deg, var(--teal) 0%, var(--periwinkle) 55%, var(--plum) 100%);
+        padding: 13px 28px;
+        border-radius: 999px;
+        box-shadow: 2px 4px 10px rgba(69, 50, 87, 0.25);
+        transition: transform 0.15s ease;
+    }
+    .alt-portfolio-btn:hover { transform: translateY(-2px); }
+    .signature-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        margin-top: auto;
+        padding-top: 40px;
+    }
+    .signature-row img {
+        height: 35px;
+        width: auto;
+        opacity: 0.85;
+    }
+</style>
+</head>
+<body>
+<div id="page">
+    <div class="banner">
+        <img src="photo-by-Jeff-Biege.jpg" alt="Ocean waves crashing against shoreline!">
+    </div>
+    <nav class="tabs">
+        <a href="assignment1.html">Home</a>
+        <a href="assignment2.html">Video</a>
+        <a href="assignment5.html" class="active">Portfolio</a>
+    </nav>
+    <h1>Portfolio Table</h1>
+    <p class="intro">Same work, laid out as a list. Click the thumbnails for a <span class="highlight">closer look!</span></p>
+      <table class="works">
+        <thead>
+            <tr>
+                <th>Preview</th>
+                <th>Title</th>
+                <th>Medium</th>
+                <th>File</th>
+                <th>Dimensions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><a class="thumb-cell" href="self-portrait1.png" onclick="return openLightbox(event, 'self-portrait1.png')"><img class="row-thumb" src="lowres-self-portrait1.png" alt="Horizontal Self-Portrait"></a></td>
+                <td class="title">Self Portrait #1</td>
+                <td>Color pastel on paper</td>
+                <td>PNG</td>
+                <td>24 × 18 in</td>
+            </tr>
+            <tr>
+                <td><a class="thumb-cell" href="self-portrait2.png" onclick="return openLightbox(event, 'self-portrait2.png')"><img class="row-thumb" src="lowres-self-portrait2.png" alt="Vertical Self-Portrait" style="object-position: center top;"></a></td>
+                <td class="title">Self Portrait #2</td>
+                <td>Color pastel on paper</td>
+                <td>PNG</td>
+                <td>18 × 24 in</td>
+            </tr>
+            <tr>
+                <td><a class="thumb-cell" href="frogrender.png" onclick="return openLightbox(event, 'frogrender.png')"><img class="row-thumb" src="lowres-frogrender.png" alt="3D render of Frog"></a></td>
+                <td class="title">Frog Render</td>
+                <td>3D render (Blender)</td>
+                <td>PNG</td>
+                <td>1003 × 945 px</td>
+            </tr>
+            <tr>
+                <td><a class="thumb-cell" href="bunnyrender.png" onclick="return openLightbox(event, 'bunnyrender.png')"><img class="row-thumb" src="lowres-bunnyrender.png" alt="3D render of Bunny"></a></td>
+                <td class="title">Bunny Render</td>
+                <td>3D render (Blender)</td>
+                <td>PNG</td>
+                <td>609 × 633 px</td>
+            </tr>
+            <tr>
+                <td><a class="thumb-cell" href="unlikelyprotector.jpg" onclick="return openLightbox(event, 'unlikelyprotector.jpg')"><img class="row-thumb" src="lowres-unlikelyprotector.jpg" alt="Collage of Wolf and Lamb"></a></td>
+                <td class="title">Collage</td>
+                <td>Digital collage (Photoshop)</td>
+                <td>JPG</td>
+                <td>2400 × 3000 px</td>
+            </tr>
+            <tr>
+                <td><a class="thumb-cell" href="spookyrender.png" onclick="return openLightbox(event, 'spookyrender.png')"><img class="row-thumb" src="lowres-spookyrender.png" alt="Spooky 3D render of Dog and Human"></a></td>
+                <td class="title">Spooky Render</td>
+                <td>3D render (Blender)</td>
+                <td>PNG</td>
+                <td>864 × 631 px</td>
+            </tr>
+            <tr>
+                <td><a class="thumb-cell" href="treerender.png" onclick="return openLightbox(event, 'treerender.png')"><img class="row-thumb" src="lowres-treerender.png" alt="3D render of Tree w/ Lights"></a></td>
+                <td class="title">Tree Render</td>
+                <td>3D render (Blender)</td>
+                <td>PNG</td>
+                <td>734 × 616 px</td>
+            </tr>
+            <tr>
+                <td><a class="thumb-cell" href="sculpture.png" onclick="return openLightbox(event, 'sculpture.png')"><img class="row-thumb" src="lowres-sculpture.png" alt="Painted clay sculpture"></a></td>
+                <td class="title">Sculpture</td>
+                <td>Air-dry clay, acrylic paint</td>
+                <td>PNG</td>
+                <td>4 × 8.5 in (W × H)</td>
+            </tr>
+            <tr>
+                <td><a class="thumb-cell" href="colorlandscape.png" onclick="return openLightbox(event, 'colorlandscape.png')"><img class="row-thumb" src="lowres-colorlandscape.png" alt="Color landscape"></a></td>
+                <td class="title">Color Landscape</td>
+                <td>Color pastel on paper</td>
+                <td>PNG</td>
+                <td>18 × 24 in</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alt-portfolio-wrap">
+        <a class="alt-portfolio-btn" href="assignment4.html">&larr; Back to Gallery View</a>
+    </div>
+    <div class="signature-row">
+        <img src="fishvector1.png" alt="Fish icon">
+        <img src="beetlevector1.png" alt="Beetle icon">
+        <img src="fishvector2.png" alt="Fish icon">
+        <img src="beetlevector2.png" alt="Beetle icon">
+        <img src="fishvector1.png" alt="Fish icon">
+        <img src="beetlevector1.png" alt="Beetle icon">
+        <img src="fishvector2.png" alt="Fish icon">
+        <img src="beetlevector2.png" alt="Beetle icon">
+    </div>
+</div>
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <img id="lightbox-img" class="lightbox-img" onclick="event.stopPropagation()">
+</div>
+<script>
+    function openLightbox(e, src) {
+        e.preventDefault();
+        document.getElementById('lightbox-img').src = src;
+        document.getElementById('lightbox').classList.add('active');
+        return false;
+    }
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('active');
+    }
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') closeLightbox();
+    });
+</script>
+</body>
+</html>
