@@ -74,7 +74,7 @@
     display: flex;
     justify-content: center;
     gap: 12px;
-    margin: 0 0 28px 0;
+    margin: 0 0 40px 0;
 }
 nav.tabs a {
     font: 700 12.5pt/1em 'Nunito', sans-serif;
@@ -96,6 +96,64 @@ nav.tabs a.active {
     background: var(--plum);
     box-shadow: 2px 3px 0px var(--lavender);
 }
+    nav.tabs { position: relative; z-index: 50; }
+    nav.tabs .dropdown {
+        position: relative;
+        display: flex;
+    }
+    nav.tabs .dropdown-toggle::after {
+        content: "";
+        display: inline-block;
+        margin-left: 10px;
+        vertical-align: middle;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 5px solid currentColor;
+        transition: transform 0.2s ease;
+    }
+    nav.tabs .dropdown:hover .dropdown-toggle::after,
+    nav.tabs .dropdown:focus-within .dropdown-toggle::after {
+        transform: rotate(180deg);
+    }
+    nav.tabs .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-6px);
+        min-width: 100%;
+        padding-top: 8px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    }
+    nav.tabs .dropdown:hover .dropdown-menu,
+    nav.tabs .dropdown:focus-within .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+    nav.tabs .dropdown-menu a {
+        display: block;
+        text-align: center;
+        white-space: nowrap;
+        border-radius: 0;
+        padding: 12px 22px;
+        background: var(--paper);
+        color: var(--plum);
+        border: 2px solid #e3e0ee;
+        border-bottom-width: 1px;
+        box-shadow: none;
+    }
+    nav.tabs .dropdown-menu a:first-child { border-radius: 16px 16px 0 0; }
+    nav.tabs .dropdown-menu a:last-child  { border-radius: 0 0 16px 16px; border-bottom-width: 2px; }
+    nav.tabs .dropdown-menu a:hover {
+        background: #f4eef7;
+        border-color: var(--lavender);
+    }
+    nav.tabs .dropdown-menu a.current {
+        background: var(--plum);
+        color: var(--paper);
+    }
     p {
         font: 400 15.5pt/1.65em 'Nunito', sans-serif;
         color: var(--ink);
@@ -134,10 +192,26 @@ nav.tabs a.active {
         <img src="photo-by-Jeff-Biege.jpg" alt="Ocean waves crashing against shoreline!">
     </div>
     <nav class="tabs">
-    <a href="assignment1.html" class="active">Home</a>
-    <a href="assignment2.html">Video</a>
-    <a href="assignment4.html">Portfolio</a>
-</nav>
+        <a href="assignment1.html" class="active">Home</a>
+        <a href="assignment2.html">Video</a>
+        <div class="dropdown">
+            <a href="assignment4.html" class="dropdown-toggle">Portfolio</a>
+            <div class="dropdown-menu">
+                <a href="assignment4.html">Gallery View</a>
+                <a href="assignment5.html">Table View</a>
+                <a href="assignment6.html">Grid View</a>
+            </div>
+        </div>
+        <a href="assignment7.html">Contact Me!</a>
+        <div class="dropdown">
+            <a href="assignment8.html" class="dropdown-toggle">Other</a>
+            <div class="dropdown-menu">
+                <a href="assignment8.html">Option One</a>
+                <a href="assignment9.html">Option Two</a>
+                <a href="assignment10.html">Option Three</a>
+            </div>
+        </div>
+    </nav>
     <h1>Get to Know Me!</h1>
     <h2>Graphic Design Major &nbsp;&middot;&nbsp; Seamstress</h2>
     <div class="icon-row">
