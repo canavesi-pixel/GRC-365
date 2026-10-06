@@ -50,7 +50,7 @@
         display: flex;
         justify-content: center;
         gap: 12px;
-        margin: 0 0 44px 0;
+        margin: 0 0 40px 0;
     }
     nav.tabs a {
         font: 700 12.5pt/1em 'Nunito', sans-serif;
@@ -72,7 +72,64 @@
         background: var(--plum);
         box-shadow: 2px 3px 0px var(--lavender);
     }
-
+    nav.tabs { position: relative; z-index: 50; }
+    nav.tabs .dropdown {
+        position: relative;
+        display: flex;
+    }
+    nav.tabs .dropdown-toggle::after {
+        content: "";
+        display: inline-block;
+        margin-left: 10px;
+        vertical-align: middle;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 5px solid currentColor;
+        transition: transform 0.2s ease;
+    }
+    nav.tabs .dropdown:hover .dropdown-toggle::after,
+    nav.tabs .dropdown:focus-within .dropdown-toggle::after {
+        transform: rotate(180deg);
+    }
+    nav.tabs .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-6px);
+        min-width: 100%;
+        padding-top: 8px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    }
+    nav.tabs .dropdown:hover .dropdown-menu,
+    nav.tabs .dropdown:focus-within .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+    nav.tabs .dropdown-menu a {
+        display: block;
+        text-align: center;
+        white-space: nowrap;
+        border-radius: 0;
+        padding: 12px 22px;
+        background: var(--paper);
+        color: var(--plum);
+        border: 2px solid #e3e0ee;
+        border-bottom-width: 1px;
+        box-shadow: none;
+    }
+    nav.tabs .dropdown-menu a:first-child { border-radius: 16px 16px 0 0; }
+    nav.tabs .dropdown-menu a:last-child  { border-radius: 0 0 16px 16px; border-bottom-width: 2px; }
+    nav.tabs .dropdown-menu a:hover {
+        background: #f4eef7;
+        border-color: var(--lavender);
+    }
+    nav.tabs .dropdown-menu a.current {
+        background: var(--plum);
+        color: var(--paper);
+    }
     h1 {
         font: 700 56pt/1.0em 'Baloo 2', cursive;
         text-align: center;
@@ -91,7 +148,6 @@
         color: var(--teal);
         font-weight: 700;
     }
-
     .video-frame {
         display: block;
         margin: 0 auto 16px auto;
@@ -111,15 +167,13 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 16px;
+        gap: 15px;
         margin: 0 0 12px 0;
     }
     .signature-row img {
         height: 35px;
         width: auto;
-        opacity: 0.85;
     }
-
     .insta-wrap {
         display: flex;
         justify-content: center;
@@ -167,19 +221,32 @@
     <nav class="tabs">
         <a href="assignment1.html">Home</a>
         <a href="assignment2.html" class="active">Video</a>
-        <a href="assignment4.html">Portfolio</a>
+        <div class="dropdown">
+            <a href="assignment4.html" class="dropdown-toggle">Portfolio</a>
+            <div class="dropdown-menu">
+                <a href="assignment4.html">Gallery View</a>
+                <a href="assignment5.html">Table View</a>
+                <a href="assignment6.html">Grid View</a>
+            </div>
+        </div>
+        <a href="assignment7.html">Contact Me!</a>
+        <div class="dropdown">
+            <a href="assignment8.html" class="dropdown-toggle">Other</a>
+            <div class="dropdown-menu">
+                <a href="assignment8.html">Option One</a>
+                <a href="assignment9.html">Option Two</a>
+                <a href="assignment10.html">Option Three</a>
+            </div>
+        </div>
     </nav>
-
     <h1 class="page-title">Video Introduction</h1>
     <p class="intro">Feel free to <span class="highlight">click play!</span> Here's what I'm all about:</p>
 
     <video class="video-frame" controls width="720" height="405" poster="video-poster.png">
         <source src="intro.mp4" type="video/mp4">
-        Your browser doesn't support embedded video. You can
-        <a href="intro.mp4">download the video</a> instead.
+        <a href="intro.mp4"></a>
     </video>
     <p class="video-caption">A little tour of my assorted interests (≧◡≦)</p>
-
     <div class="insta-wrap">
         <div class="insta-block">
             <p class="insta-label">Find me on Instagram!</p>
@@ -188,7 +255,6 @@
             </a>
         </div>
     </div>
-
     <div class="signature-row">
         <img src="fishvector1.png" alt="Fish icon">
         <img src="beetlevector1.png" alt="Beetle icon">
