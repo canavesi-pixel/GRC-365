@@ -1,0 +1,393 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Contact Me</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --navy: #2c3968;
+        --plum: #453257;
+        --teal: #3f7686;
+        --periwinkle: #6f6f9c;
+        --lavender: #8f93c0;
+        --ink: #3d3a3f;
+        --paper: #fffdf9;
+    }
+    body {
+        background: linear-gradient(160deg, #eef2f7 0%, #f4eef7 100%);
+        margin: 0;
+        padding: 48px 0;
+    }
+    #page {
+        width: 1024px;
+        min-height: 1224px;
+        background: var(--paper);
+        margin: 0 auto;
+        padding: 0 64px 64px 64px;
+        box-sizing: border-box;
+        box-shadow: 5px 8px 20px rgba(45, 57, 104, 0.3), 0 0 0 1px rgba(45, 57, 104, 0.08);
+        display: flex;
+        flex-direction: column;
+    }
+    .banner {
+        width: calc(100% + 128px);
+        height: 220px;
+        margin: 0 -64px 40px -64px;
+        overflow: hidden;
+    }
+    .banner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    nav.tabs {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin: 0 0 40px 0;
+        position: relative;
+        z-index: 50;
+    }
+    nav.tabs a {
+        font: 700 12.5pt/1em 'Nunito', sans-serif;
+        letter-spacing: 0.3px;
+        text-decoration: none;
+        color: var(--periwinkle);
+        background: #f4eef7;
+        padding: 10px 26px;
+        border-radius: 999px;
+        border: 2px solid transparent;
+        transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    nav.tabs a:hover {
+        color: var(--plum);
+        border-color: var(--lavender);
+    }
+    nav.tabs a.active {
+        color: var(--paper);
+        background: var(--plum);
+        box-shadow: 2px 3px 0px var(--lavender);
+    }
+    nav.tabs .dropdown {
+        position: relative;
+        display: flex;
+    }
+    nav.tabs .dropdown-toggle::after {
+        content: "";
+        display: inline-block;
+        margin-left: 10px;
+        vertical-align: middle;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 5px solid currentColor;
+        transition: transform 0.2s ease;
+    }
+    nav.tabs .dropdown:hover .dropdown-toggle::after,
+    nav.tabs .dropdown:focus-within .dropdown-toggle::after {
+        transform: rotate(180deg);
+    }
+    nav.tabs .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-6px);
+        min-width: 100%;
+        padding-top: 8px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    }
+    nav.tabs .dropdown:hover .dropdown-menu,
+    nav.tabs .dropdown:focus-within .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+    nav.tabs .dropdown-menu a {
+        display: block;
+        text-align: center;
+        white-space: nowrap;
+        border-radius: 0;
+        padding: 12px 22px;
+        background: var(--paper);
+        color: var(--plum);
+        border: 2px solid #e3e0ee;
+        border-bottom-width: 1px;
+        box-shadow: none;
+    }
+    nav.tabs .dropdown-menu a:first-child { border-radius: 16px 16px 0 0; }
+    nav.tabs .dropdown-menu a:last-child  { border-radius: 0 0 16px 16px; border-bottom-width: 2px; }
+    nav.tabs .dropdown-menu a:hover {
+        background: #f4eef7;
+        border-color: var(--lavender);
+    }
+    nav.tabs .dropdown-menu a.current {
+        background: var(--plum);
+        color: var(--paper);
+    }
+    h1 {
+        font: 700 56pt/1.0em 'Baloo 2', cursive;
+        text-align: center;
+        color: var(--plum);
+        text-shadow: 3px 3px 0px var(--lavender);
+        margin: 0;
+    }
+    p.intro {
+        text-align: center;
+        font: 600 15pt/1.5em 'Nunito', sans-serif;
+        color: var(--ink);
+        max-width: 620px;
+        margin: 8px auto 16px auto;
+    }
+    form.contact-form {
+        width: 560px;
+        margin: 0 auto;
+        background: #f4eef7;
+        border: 1px solid var(--lavender);
+        border-radius: 16px;
+        box-shadow: 3px 5px 14px rgba(69, 50, 87, 0.25);
+        padding: 24px 36px 36px 36px;
+        box-sizing: border-box;
+    }
+    .field {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+    label {
+        font: 700 9.5pt/1.4em 'Nunito', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: var(--plum);
+        margin-bottom: 6px;
+    }
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+        font: 400 11.5pt/1.4em 'Nunito', sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+        border: 1px solid var(--lavender);
+        border-radius: 8px;
+        padding: 10px 12px;
+        box-sizing: border-box;
+        width: 100%;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus,
+    textarea:focus {
+        outline: none;
+        border-color: var(--teal);
+    }
+    textarea {
+        resize: vertical;
+        min-height: 110px;
+    }
+    fieldset {
+        border: 1px solid var(--lavender);
+        border-radius: 10px;
+        padding: 14px 16px 16px 16px;
+        margin: 0 0 20px 0;
+    }
+    legend {
+        font: 700 11pt/1.2em 'Nunito', sans-serif;
+        color: var(--plum);
+        padding: 0 6px;
+    }
+    p.fieldset-note {
+        font: 400 10pt/1.4em 'Nunito', sans-serif;
+        color: var(--periwinkle);
+        margin: 2px 0 10px 0;
+    }
+    .option-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 12px 0;
+        cursor: pointer;
+    }
+    .option-row label {
+        font: 400 12pt/1.4em 'Nunito', sans-serif;
+        text-transform: none;
+        letter-spacing: normal;
+        margin: 0;
+        color: var(--ink);
+        cursor: pointer;
+    }
+    .option-row input[type="radio"],
+    .option-row input[type="checkbox"] {
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+        accent-color: var(--teal);
+        cursor: pointer;
+    }
+    #other-topic-input {
+        display: none;
+        font: 400 11.5pt/1.4em 'Nunito', sans-serif;
+        color: var(--ink);
+        background: var(--paper);
+        border: 1px solid var(--lavender);
+        border-radius: 8px;
+        padding: 9px 12px;
+        box-sizing: border-box;
+        width: calc(100% - 32px);
+        margin: 4px 0 2px 32px;
+    }
+    #other-topic-input:focus {
+        outline: none;
+        border-color: var(--teal);
+    }
+    input[type="submit"] {
+        display: block;
+        margin: 8px auto 0 auto;
+        font: 700 12.5pt/1em 'Nunito', sans-serif;
+        color: var(--paper);
+        background: linear-gradient(135deg, var(--teal) 0%, var(--periwinkle) 55%, var(--plum) 100%);
+        border: none;
+        padding: 13px 34px;
+        border-radius: 999px;
+        box-shadow: 2px 4px 10px rgba(69, 50, 87, 0.25);
+        cursor: pointer;
+        transition: transform 0.15s ease;
+    }
+    input[type="submit"]:hover {
+        transform: translateY(-2px);
+    }
+    .signature-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        margin-top: auto;
+        padding-top: 40px;
+    }
+    .signature-row img {
+        height: 35px;
+        width: auto;
+        opacity: 0.85;
+    }
+</style>
+</head>
+<body>
+<div id="page">
+    <div class="banner">
+        <img src="photo-by-Jeff-Biege.jpg" alt="Ocean waves crashing against shoreline!">
+    </div>
+    <nav class="tabs">
+        <a href="assignment1.html">Home</a>
+        <a href="assignment2.html">Video</a>
+        <div class="dropdown">
+            <a href="assignment4.html" class="dropdown-toggle">Portfolio</a>
+            <div class="dropdown-menu">
+                <a href="assignment4.html">Gallery View</a>
+                <a href="assignment5.html">Table View</a>
+                <a href="assignment6.html">Grid View</a>
+            </div>
+        </div>
+        <a href="assignment7.html" class="active">Contact Me!</a>
+        <div class="dropdown">
+            <a href="assignment8.html" class="dropdown-toggle">Other</a>
+            <div class="dropdown-menu">
+                <a href="assignment8.html">Option One</a>
+                <a href="assignment9.html">Option Two</a>
+                <a href="assignment10.html">Option Three</a>
+            </div>
+        </div>
+    </nav>
+    <h1>Contact Me!</h1>
+    <p class="intro">Got something to say? Send me a message!</p>
+    <form class="contact-form" action="https://formsubmit.co/acana.soledad@gmail.com" method="POST">
+        <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+        <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+        <div class="field">
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject">
+                <option value="General question">General question</option>
+                <option value="Portfolio inquiry">Portfolio inquiry</option>
+                <option value="Commission request">Commission request</option>
+                <option value="Collaboration">Collaboration</option>
+                <option value="Just saying hi!">Just saying hi!</option>
+            </select>
+        </div>
+        <fieldset>
+            <legend>What are you reaching out about?</legend>
+            <p class="fieldset-note">Select all that apply</p>
+            <div class="option-row">
+                <input type="checkbox" id="topic-design" name="topic" value="Graphic design">
+                <label for="topic-design">Graphic design</label>
+            </div>
+            <div class="option-row">
+                <input type="checkbox" id="topic-sewing" name="topic" value="Sewing / apparel">
+                <label for="topic-sewing">Sewing / apparel</label>
+            </div>
+            <div class="option-row">
+                <input type="checkbox" id="topic-art" name="topic" value="Illustration / art">
+                <label for="topic-art">Illustration / art</label>
+            </div>
+            <div class="option-row">
+                <input type="checkbox" id="topic-other" name="topic" value="Something else" onchange="toggleOtherInput()">
+                <label for="topic-other">Something else</label>
+            </div>
+            <input type="text" id="other-topic-input" name="other_topic" placeholder="Tell me a bit more...">
+        </fieldset>
+        <fieldset>
+            <legend>How would you prefer I get back to you?</legend>
+            <div class="option-row">
+                <input type="radio" id="reply-email" name="reply_method" value="Email" checked>
+                <label for="reply-email">Email</label>
+            </div>
+            <div class="option-row">
+                <input type="radio" id="reply-insta" name="reply_method" value="Instagram">
+                <label for="reply-insta">Instagram DM</label>
+            </div>
+            <div class="option-row">
+                <input type="radio" id="reply-either" name="reply_method" value="Either is fine">
+                <label for="reply-either">Either is fine</label>
+            </div>
+        </fieldset>
+        <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="What's on your mind?" required></textarea>
+        </div>
+        <input type="hidden" name="_subject" value="New message from your portfolio site!">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="submit" value="Send Message">
+    </form>
+    <div class="signature-row">
+        <img src="fishvector1.png" alt="Fish icon">
+        <img src="beetlevector1.png" alt="Beetle icon">
+        <img src="fishvector2.png" alt="Fish icon">
+        <img src="beetlevector2.png" alt="Beetle icon">
+        <img src="fishvector1.png" alt="Fish icon">
+        <img src="beetlevector1.png" alt="Beetle icon">
+        <img src="fishvector2.png" alt="Fish icon">
+        <img src="beetlevector2.png" alt="Beetle icon">
+    </div>
+</div>
+<script>
+    function toggleOtherInput() {
+        var checkbox = document.getElementById('topic-other');
+        var input = document.getElementById('other-topic-input');
+        if (checkbox.checked) {
+            input.style.display = 'block';
+            input.focus();
+        } else {
+            input.style.display = 'none';
+            input.value = '';
+        }
+    }
+</script>
+</body>
+</html>
