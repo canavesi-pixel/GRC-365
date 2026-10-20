@@ -1,0 +1,296 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Fox and the Crow — Type Sample</title>
+<link rel="icon" type="image/png" href="fishvector2.png">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,600&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;1,7..72,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --sage: #8f9888;
+        --sage-deep: #6d7566;
+        --cream: #faf6ec;
+        --cream-light: #fffff7;
+        --ink: #2e2a22;
+        --rust: #a8552e;
+    }
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        background: var(--sage-deep);
+        font-family: 'Literata', Georgia, serif;
+        color: var(--ink);
+    }
+    .sitebar {
+        padding: 22px 24px;
+        display: flex;
+        justify-content: center;
+    }
+    .sitebar a.home-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--sage-deep);
+        text-decoration: none;
+        font-family: 'Fraunces', serif;
+        font-weight: 600;
+        font-size: 11.5pt;
+        letter-spacing: 0.6px;
+        background: var(--cream-light);
+        padding: 10px 26px;
+        border-radius: 999px;
+        box-shadow: 2px 4px 0px var(--sage-deep), 2px 4px 10px rgba(0,0,0,0.25);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .sitebar a.home-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 2px 6px 0px var(--sage-deep), 2px 8px 14px rgba(0,0,0,0.3);
+    }
+    .sitebar a.home-btn img {
+        width: 24px;
+        height: auto;
+        display: block;
+    }
+    .page {
+        width: 100%;
+        max-width: 1024px;
+        margin: 0 auto;
+        background: var(--cream);
+        box-shadow: 0 0 40px rgba(0,0,0,0.3);
+    }
+    .hero {
+        position: relative;
+        height: 560px;
+        background-image:
+            linear-gradient(180deg, rgba(250,246,236,0.35) 0%, rgba(250,246,236,0.05) 32%, rgba(250,246,236,0.5) 100%),
+            url("foxandcrow.png");
+        background-size: cover;
+        background-position: center 18%;
+    }
+    .hero-scallop {
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        height: 36px;
+    }
+    .hero-text {
+        position: absolute;
+        top: 34px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        background: rgba(250, 246, 236, 0.85);
+        padding: 20px 50px 22px 50px;
+        border-radius: 10px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    }
+    .hero-text .kicker {
+        font-family: 'Caveat', cursive;
+        font-weight: 700;
+        font-size: 19pt;
+        color: var(--rust);
+        display: block;
+        margin-bottom: 0;
+    }
+    .hero-text h1 {
+        font-family: 'Fraunces', serif;
+        font-weight: 700;
+        font-size: 48pt;
+        line-height: 1.05em;
+        margin: 2px 0 6px 0;
+        color: var(--sage-deep);
+        text-shadow: 2px 2px 0px rgba(255,255,255,0.7), 3px 4px 10px rgba(0,0,0,0.15);
+    }
+    .hero-caption {
+        position: absolute;
+        bottom: 46px;
+        right: 20px;
+        background: var(--cream);
+        padding: 6px 14px;
+        border-radius: 4px;
+        font-family: 'Literata', serif;
+        font-style: italic;
+        font-size: 12pt;
+        color: var(--sage-deep);
+    }
+    .content {
+        padding: 44px 90px 30px 90px;
+    }
+    .fable {
+        max-width: 720px;
+        margin: 0 auto;
+        font-size: 13.5pt;
+        line-height: 1.75em;
+    }
+    .fable p { margin: 0 0 18px 0; }
+    .fable p.lead::first-letter {
+        font-family: 'Fraunces', serif;
+        font-weight: 700;
+        font-size: 58pt;
+        float: left;
+        line-height: 0.82em;
+        padding: 4px 8px 0 0;
+        color: var(--rust);
+    }
+    .fable p.lead { font-size: 13pt; }
+    .pull-fox {
+        float: right;
+        width: 210px;
+        margin: 0 0 18px 24px;
+        position: relative;
+    }
+    .pull-fox img.fox-shape {
+        width: 100%;
+        height: auto;
+        display: block;
+        filter: drop-shadow(3px 6px 5px rgba(0,0,0,0.22));
+    }
+    .pull-fox .quote-text {
+        position: absolute;
+        top: 52%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60%;
+        text-align: center;
+    }
+    .pull-fox .quote-text p {
+        font-family: 'Caveat', cursive;
+        font-weight: 700;
+        font-size: 18pt;
+        line-height: 1.15em;
+        color: var(--sage-deep);
+        margin: 0;
+    }
+    .pull-fox .quote-text cite {
+        display: block;
+        margin-top: 4px;
+        font-family: 'Literata', serif;
+        font-style: italic;
+        font-size: 8pt;
+        color: var(--rust);
+    }
+    .flourish {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 26px;
+        color: var(--sage-deep);
+        font-size: 26pt;
+        margin: 24px 0 28px 0;
+    }
+    .moral {
+        max-width: 480px;
+        margin: 0 auto 0 auto;
+        text-align: center;
+        clear: both;
+        background: var(--cream-light);
+        border-radius: 10px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+        padding: 22px 40px 24px 40px;
+    }
+    .moral .label {
+        font-family: 'Fraunces', serif;
+        font-weight: 700;
+        font-size: 10pt;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--rust);
+        display: block;
+        margin-bottom: 6px;
+    }
+    .moral p {
+        font-family: 'Fraunces', serif;
+        font-style: italic;
+        font-weight: 500;
+        font-size: 15pt;
+        color: var(--sage-deep);
+        margin: 0;
+    }
+    footer.endnote {
+        text-align: center;
+        font-family: 'Caveat', cursive;
+        font-size: 15pt;
+        color: var(--sage-deep);
+        opacity: 0.75;
+        padding: 18px 0 32px 0;
+    }
+    @media (max-width: 680px) {
+        .content {
+            padding: 28px 20px 16px 20px;
+        }
+        .hero {
+            height: 360px;
+        }
+        .hero-text {
+            padding: 14px 20px 16px 20px;
+            width: 85%;
+        }
+        .hero-text h1 {
+            font-size: 28pt;
+        }
+        .hero-text .kicker {
+            font-size: 14pt;
+        }
+        .hero-caption {
+            font-size: 9pt;
+            padding: 4px 10px;
+            bottom: 36px;
+        }
+        .fable {
+            font-size: 11pt;
+        }
+        .fable p.lead::first-letter {
+            font-size: 42pt;
+        }
+        .pull-fox {
+            float: none;
+            width: 70%;
+            margin: 0 auto 18px auto;
+        }
+        .moral {
+            max-width: 90%;
+            padding: 18px 24px 20px 24px;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="sitebar">
+    <a class="home-btn" href="assignment1.html"><img src="fishvector2.png" alt="">Home</a>
+</div>
+<div class="page">
+    <div class="hero">
+        <div class="hero-text">
+            <span class="kicker">An Aesop Fable</span>
+            <h1>The Fox &amp; the Crow</h1>
+        </div>
+        <div class="hero-caption">Illustration: Kelly Louise Judd</div>
+        <svg class="hero-scallop" viewBox="0 0 400 20" preserveAspectRatio="none">
+            <path d="M0,0 Q10,20 20,0 Q30,20 40,0 Q50,20 60,0 Q70,20 80,0 Q90,20 100,0 Q110,20 120,0 Q130,20 140,0 Q150,20 160,0 Q170,20 180,0 Q190,20 200,0 Q210,20 220,0 Q230,20 240,0 Q250,20 260,0 Q270,20 280,0 Q290,20 300,0 Q310,20 320,0 Q330,20 340,0 Q350,20 360,0 Q370,20 380,0 Q390,20 400,0 L400,20 L0,20 Z" fill="#faf6ec"/>
+        </svg>
+    </div>
+    <div class="content">
+        <div class="fable">
+            <p class="lead">One bright morning, the Fox saw a Crow sitting on a tree branch with a bit of cheese in her beak. “No need to search any farther,” thought sly Master Fox. “Here is a dainty bite for my breakfast.”</p>
+            <div class="pull-fox">
+                <img class="fox-shape" src="foxhead.png" alt="">
+                <div class="quote-text">
+                    <p>What a charming creature she is!</p>
+                    <cite>&mdash; the Fox, flattering</cite>
+                </div>
+            </div>
+            <p>Up he trotted to the foot of the tree and cried, “Good-morning, beautiful creature!” He praised her shining feathers, splendid wings, and lovely form, declaring that such a wonderful bird must have a beautiful voice. “Could she sing just one song, I know I should hail her Queen of Birds.”</p>
+            <p>The Crow, delighted by his flattery, opened her beak to caw, and down fell the cheese straight into the Fox’s mouth. “Thank you,” said Master Fox sweetly as he walked off. “Though it is cracked, you have a voice sure enough—but where are your wits?”</p>
+            <div class="flourish"><span>𓅨</span><span>𓃦</span><span>𓅨</span></div>
+            <div class="moral">
+                <span class="label">Moral</span>
+                <p>The flatterer lives at the expense of those who will listen to him.</p>
+            </div>
+        </div>
+    </div>
+    <footer class="endnote">Fraunces &middot; Literata &middot; Caveat — Google Fonts</footer>
+</div>
+</body>
+</html>
