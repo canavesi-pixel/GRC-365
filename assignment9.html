@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsive Design</title>
+<link rel="icon" type="image/png" href="fishvector2.png">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --navy: #2c3968;
+        --plum: #453257;
+        --teal: #3f7686;
+        --periwinkle: #6f6f9c;
+        --lavender: #8f93c0;
+        --ink: #3d3a3f;
+        --paper: #fffdf9;
+        --pad: 64px;
+    }
+    * { box-sizing: border-box; }
+    body {
+        background: linear-gradient(160deg, #eef2f7 0%, #f4eef7 100%);
+        margin: 0;
+        padding: 48px 0;
+    }
+    img { max-width: 100%; height: auto; }
+    #page {
+        width: 100%;
+        max-width: 1024px;
+        min-height: 1224px;
+        background: var(--paper);
+        margin: 0 auto;
+        padding: 0 var(--pad) 64px var(--pad);
+        box-shadow: 5px 8px 20px rgba(45, 57, 104, 0.3), 0 0 0 1px rgba(45, 57, 104, 0.08);
+        display: flex;
+        flex-direction: column;
+    }
+    .banner {
+        width: calc(100% + 2 * var(--pad));
+        max-width: none;
+        height: 220px;
+        margin: 0 calc(-1 * var(--pad)) 40px calc(-1 * var(--pad));
+        overflow: hidden;
+    }
+    .banner img {
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    nav.tabs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        margin: 0 0 40px 0;
+        position: relative;
+        z-index: 50;
+    }
+    nav.tabs a {
+        font: 700 12.5pt/1em 'Nunito', sans-serif;
+        letter-spacing: 0.3px;
+        text-decoration: none;
+        color: var(--periwinkle);
+        background: #f4eef7;
+        padding: 10px 26px;
+        border-radius: 999px;
+        border: 2px solid transparent;
+        transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    nav.tabs a:hover {
+        color: var(--plum);
+        border-color: var(--lavender);
+    }
+    nav.tabs a.active {
+        color: var(--paper);
+        background: var(--plum);
+        box-shadow: 2px 3px 0px var(--lavender);
+    }
+    nav.tabs .dropdown {
+        position: relative;
+        display: flex;
+    }
+    nav.tabs .dropdown-toggle::after {
+        content: "";
+        display: inline-block;
+        margin-left: 10px;
+        vertical-align: middle;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 5px solid currentColor;
+        transition: transform 0.2s ease;
+    }
+    nav.tabs .dropdown:hover .dropdown-toggle::after,
+    nav.tabs .dropdown:focus-within .dropdown-toggle::after {
+        transform: rotate(180deg);
+    }
+    nav.tabs .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-6px);
+        min-width: 100%;
+        padding-top: 8px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    }
+    nav.tabs .dropdown:hover .dropdown-menu,
+    nav.tabs .dropdown:focus-within .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+    nav.tabs .dropdown-menu a {
+        display: block;
+        text-align: center;
+        white-space: nowrap;
+        border-radius: 0;
+        padding: 12px 22px;
+        background: var(--paper);
+        color: var(--plum);
+        border: 2px solid #e3e0ee;
+        border-bottom-width: 1px;
+        box-shadow: none;
+    }
+    nav.tabs .dropdown-menu a:first-child { border-radius: 16px 16px 0 0; }
+    nav.tabs .dropdown-menu a:last-child  { border-radius: 0 0 16px 16px; border-bottom-width: 2px; }
+    nav.tabs .dropdown-menu a:hover {
+        background: #f4eef7;
+        border-color: var(--lavender);
+    }
+    nav.tabs .dropdown-menu a.current {
+        background: var(--plum);
+        color: var(--paper);
+    }
+    h1 {
+        font: 700 56pt/1.0em 'Baloo 2', cursive;
+        text-align: center;
+        color: var(--plum);
+        text-shadow: 3px 3px 0px var(--lavender);
+        margin: 0;
+        max-width: 100%;
+    }
+    p.intro {
+        text-align: center;
+        font: 600 15pt/1.5em 'Nunito', sans-serif;
+        color: var(--ink);
+        max-width: 620px;
+        margin: 8px auto 28px auto;
+    }
+    p.filler-note {
+        text-align: center;
+        font: 400 12pt/1.5em 'Nunito', sans-serif;
+        font-style: italic;
+        color: var(--periwinkle);
+        max-width: 560px;
+        margin: 28px auto 0 auto;
+    }
+    .carousel {
+        width: 100%;
+        max-width: 760px;
+        margin: 0 auto;
+    }
+    .carousel .frame {
+        position: relative;
+    }
+    .carousel .viewport {
+        overflow: hidden;
+        border-radius: 16px;
+        box-shadow: 3px 5px 14px rgba(69, 50, 87, 0.3);
+        touch-action: pan-y;
+    }
+    .carousel .track {
+        display: flex;
+        transition: transform 0.45s ease;
+    }
+    .carousel .slide {
+        flex: 0 0 100%;
+        margin: 0;
+        aspect-ratio: 4 / 3;
+    }
+    .carousel .slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        -webkit-user-drag: none;
+        user-select: none;
+    }
+    .carousel button.arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 46px;
+        height: 46px;
+        border: none;
+        border-radius: 50%;
+        background: rgba(255, 253, 249, 0.9);
+        color: var(--plum);
+        font: 700 22pt/1em 'Nunito', sans-serif;
+        padding: 0 0 4px 0;
+        cursor: pointer;
+        box-shadow: 2px 3px 8px rgba(69, 50, 87, 0.3);
+        transition: background 0.15s ease, color 0.15s ease;
+    }
+    .carousel button.arrow:hover {
+        background: var(--plum);
+        color: var(--paper);
+    }
+    .carousel button.arrow:focus-visible,
+    .carousel .dots button:focus-visible {
+        outline: 3px solid var(--teal);
+        outline-offset: 2px;
+    }
+    .carousel button.prev { left: 12px; }
+    .carousel button.next { right: 12px; }
+    .carousel .slide-caption {
+        text-align: center;
+        font: 700 13pt/1.4em 'Nunito', sans-serif;
+        color: var(--plum);
+        margin: 16px 0 10px 0;
+        min-height: 1.4em;
+    }
+    .carousel .slide-caption a {
+        color: var(--teal);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+    .carousel .slide-caption a:hover {
+        color: var(--plum);
+    }
+    .carousel .dots {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .carousel .dots button {
+        width: 12px;
+        height: 12px;
+        padding: 0;
+        border: 2px solid var(--lavender);
+        border-radius: 50%;
+        background: transparent;
+        cursor: pointer;
+        transition: background 0.15s ease, transform 0.15s ease;
+    }
+    .carousel .dots button[aria-current="true"] {
+        background: var(--plum);
+        border-color: var(--plum);
+        transform: scale(1.2);
+    }
+    .signature-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        margin-top: auto;
+        padding-top: 40px;
+    }
+    .signature-row img {
+        height: 35px;
+        width: auto;
+        opacity: 0.85;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .carousel .track { transition: none; }
+    }
+    @media (max-width: 750px) {
+        :root { --pad: 20px; }
+        body { padding: 0; }
+        #page {
+            min-height: 0;
+            padding-bottom: 32px;
+            box-shadow: none;
+        }
+        .banner {
+            height: 150px;
+            margin-bottom: 24px;
+        }
+        nav.tabs {
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+        nav.tabs a {
+            font-size: 13pt;
+            padding: 12px 16px;
+        }
+        nav.tabs .dropdown-menu {
+            left: auto;
+            right: 0;
+            transform: translateY(-6px);
+        }
+        nav.tabs .dropdown:hover .dropdown-menu,
+        nav.tabs .dropdown:focus-within .dropdown-menu {
+            transform: translateY(0);
+        }
+        nav.tabs .dropdown-menu a {
+            padding: 14px 14px;
+        }
+        h1 {
+            font-size: 34pt;
+            line-height: 1.05em;
+            text-shadow: 2px 2px 0px var(--lavender);
+        }
+        p.intro {
+            font-size: 18pt;
+            line-height: 1.7em;
+            margin-bottom: 24px;
+        }
+        p.filler-note {
+            font-size: 14pt;
+            line-height: 1.7em;
+        }
+        .carousel {
+            width: calc(100% + 2 * var(--pad));
+            max-width: none;
+            margin-left: calc(-1 * var(--pad));
+            margin-right: calc(-1 * var(--pad));
+        }
+        .carousel .viewport {
+            border-radius: 0;
+        }
+        .carousel .slide-caption {
+            font-size: 15pt;
+            line-height: 1.6em;
+            padding: 0 var(--pad);
+        }
+        .carousel button.arrow {
+            width: 52px;
+            height: 52px;
+        }
+        .carousel .dots button {
+            width: 16px;
+            height: 16px;
+        }
+        .signature-row {
+            gap: 12px;
+            padding-top: 32px;
+        }
+        .signature-row img {
+            height: 28px;
+        }
+    }
+</style>
+</head>
+<body>
+<div id="page">
+    <div class="banner">
+        <img src="photo-by-Jeff-Biege.jpg" alt="Ocean waves crashing against shoreline!">
+    </div>
+    <nav class="tabs">
+        <a href="assignment1.html">Home</a>
+        <a href="assignment2.html">Video</a>
+        <div class="dropdown">
+            <a href="assignment4.html" class="dropdown-toggle">Portfolio</a>
+            <div class="dropdown-menu">
+                <a href="assignment4.html">Gallery View</a>
+                <a href="assignment5.html">Table View</a>
+                <a href="assignment6.html">Grid View</a>
+            </div>
+        </div>
+        <a href="assignment7.html">Contact Me!</a>
+        <div class="dropdown">
+            <a href="assignment8.html" class="dropdown-toggle active">Other</a>
+            <div class="dropdown-menu">
+                <a href="assignment8.html">Type Sample</a>
+                <a href="assignment9.html">Responsive Design</a>
+                <a href="assignment10.html">Option Three</a>
+            </div>
+        </div>
+    </nav>
+    <h1>Responsive Design</h1>
+    <p class="intro">A responsive page test, featuring a few of my favorite things!</p>
+    <section class="carousel" aria-roledescription="carousel" aria-label="A few of my favorite things">
+        <div class="frame">
+            <div class="viewport" id="viewport" tabindex="0">
+                <div class="track" id="track">
+                    <figure class="slide">
+                        <img src="vocaloids.jpg" alt="Image of the Vocaloid characters" draggable="false">
+                        <figcaption hidden>Love the Vocaloids, especially <a href="https://piapro.fandom.com/wiki/Kagamine_Rin_%26_Len" target="_blank" rel="noopener noreferrer">the twins</a>!</figcaption>
+                    </figure>
+                    <figure class="slide">
+                        <img src="twilightprincess.jpg" alt="Artwork from The Legend of Zelda: Twilight Princess" draggable="false">
+                        <figcaption hidden>Twilight Princess, one of my top favorite Zelda games!</figcaption>
+                    </figure>
+                    <figure class="slide">
+                        <img src="ponyoparents.jpg" alt="Ponyo's parents from the film Ponyo" draggable="false">
+                        <figcaption hidden>Ponyo's parents, from one of my favorite films of all time!</figcaption>
+                    </figure>
+                    <figure class="slide">
+                        <img src="mareepchilling.jpg" alt="Mareep the Pokémon relaxing" draggable="false">
+                        <figcaption hidden>I love Pokémon, and <a href="https://bulbapedia.bulbagarden.net/wiki/Mareep_(Pok%C3%A9mon)" target="_blank" rel="noopener noreferrer">Mareep</a> is an all-time favorite!</figcaption>
+                    </figure>
+                </div>
+            </div>
+            <button class="arrow prev" id="prev" type="button" aria-label="Previous picture">&#8249;</button>
+            <button class="arrow next" id="next" type="button" aria-label="Next picture">&#8250;</button>
+        </div>
+        <p class="slide-caption" id="caption" aria-live="polite"></p>
+        <div class="dots" id="dots"></div>
+    </section>
+    <div class="signature-row">
+        <img src="fishvector1.png" alt="Fish icon">
+        <img src="beetlevector1.png" alt="Beetle icon">
+        <img src="fishvector2.png" alt="Fish icon">
+        <img src="beetlevector2.png" alt="Beetle icon">
+        <img src="fishvector1.png" alt="Fish icon">
+        <img src="beetlevector1.png" alt="Beetle icon">
+        <img src="fishvector2.png" alt="Fish icon">
+        <img src="beetlevector2.png" alt="Beetle icon">
+    </div>
+</div>
+<script>
+    (function () {
+        var track    = document.getElementById('track');
+        var viewport = document.getElementById('viewport');
+        var slides   = track.querySelectorAll('.slide');
+        var caption  = document.getElementById('caption');
+        var dotsBox  = document.getElementById('dots');
+        var current  = 0;
+        var dots     = [];
+        for (var i = 0; i < slides.length; i++) {
+            (function (n) {
+                var b = document.createElement('button');
+                b.type = 'button';
+                b.setAttribute('aria-label', 'Go to picture ' + (n + 1));
+                b.addEventListener('click', function () { show(n); });
+                dotsBox.appendChild(b);
+                dots.push(b);
+            })(i);
+        }
+        function show(n) {
+            current = (n + slides.length) % slides.length;
+            track.style.transform = 'translateX(-' + (current * 100) + '%)';
+            var cap = slides[current].querySelector('figcaption');
+            caption.innerHTML = cap ? cap.innerHTML : '';
+            for (var j = 0; j < dots.length; j++) {
+                dots[j].setAttribute('aria-current', j === current ? 'true' : 'false');
+            }
+        }
+        document.getElementById('prev').addEventListener('click', function () { show(current - 1); });
+        document.getElementById('next').addEventListener('click', function () { show(current + 1); });
+        viewport.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowLeft')  { show(current - 1); }
+            if (e.key === 'ArrowRight') { show(current + 1); }
+        });
+        var startX = null;
+        viewport.addEventListener('pointerdown', function (e) { startX = e.clientX; });
+        viewport.addEventListener('pointerup', function (e) {
+            if (startX === null) { return; }
+            var dx = e.clientX - startX;
+            if (Math.abs(dx) > 40) { show(dx < 0 ? current + 1 : current - 1); }
+            startX = null;
+        });
+        viewport.addEventListener('pointercancel', function () { startX = null; });
+        show(0);
+    })();
+</script>
+</body>
+</html>
