@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swim, Ponyo, Swim!</title>
+<link rel="icon" type="image/png" href="fishvector2.png">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --navy: #2c3968;
+        --plum: #453257;
+        --teal: #3f7686;
+        --periwinkle: #6f6f9c;
+        --lavender: #8f93c0;
+        --ink: #3d3a3f;
+        --paper: #fffdf9;
+        --pad: 64px;
+    }
+    * { box-sizing: border-box; }
+    body {
+        background: linear-gradient(160deg, #eef2f7 0%, #f4eef7 100%);
+        margin: 0;
+        padding: 48px 0;
+    }
+    img { max-width: 100%; height: auto; }
+    #page {
+        width: 100%;
+        max-width: 1024px;
+        background: var(--paper);
+        margin: 0 auto;
+        padding: 0 var(--pad) 64px var(--pad);
+        box-shadow: 5px 8px 20px rgba(45, 57, 104, 0.3), 0 0 0 1px rgba(45, 57, 104, 0.08);
+        display: flex;
+        flex-direction: column;
+    }
+    .banner {
+        width: calc(100% + 2 * var(--pad));
+        max-width: none;
+        height: 220px;
+        margin: 0 calc(-1 * var(--pad)) 40px calc(-1 * var(--pad));
+        overflow: hidden;
+    }
+    .banner img {
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    nav.tabs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        margin: 0 0 40px 0;
+        position: relative;
+        z-index: 50;
+    }
+    nav.tabs a {
+        font: 700 12.5pt/1em 'Nunito', sans-serif;
+        letter-spacing: 0.3px;
+        text-decoration: none;
+        color: var(--periwinkle);
+        background: #f4eef7;
+        padding: 10px 26px;
+        border-radius: 999px;
+        border: 2px solid transparent;
+        transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    nav.tabs a:hover {
+        color: var(--plum);
+        border-color: var(--lavender);
+    }
+    nav.tabs a.active {
+        color: var(--paper);
+        background: var(--plum);
+        box-shadow: 2px 3px 0px var(--lavender);
+    }
+    nav.tabs .dropdown {
+        position: relative;
+        display: flex;
+    }
+    nav.tabs .dropdown-toggle::after {
+        content: "";
+        display: inline-block;
+        margin-left: 10px;
+        vertical-align: middle;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 5px solid currentColor;
+        transition: transform 0.2s ease;
+    }
+    nav.tabs .dropdown:hover .dropdown-toggle::after,
+    nav.tabs .dropdown:focus-within .dropdown-toggle::after {
+        transform: rotate(180deg);
+    }
+    nav.tabs .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-6px);
+        min-width: 100%;
+        padding-top: 8px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    }
+    nav.tabs .dropdown:hover .dropdown-menu,
+    nav.tabs .dropdown:focus-within .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+    nav.tabs .dropdown-menu a {
+        display: block;
+        text-align: center;
+        white-space: nowrap;
+        border-radius: 0;
+        padding: 12px 22px;
+        background: var(--paper);
+        color: var(--plum);
+        border: 2px solid #e3e0ee;
+        border-bottom-width: 1px;
+        box-shadow: none;
+    }
+    nav.tabs .dropdown-menu a:first-child { border-radius: 16px 16px 0 0; }
+    nav.tabs .dropdown-menu a:last-child  { border-radius: 0 0 16px 16px; border-bottom-width: 2px; }
+    nav.tabs .dropdown-menu a:hover {
+        background: #f4eef7;
+        border-color: var(--lavender);
+    }
+    h1 {
+        font: 700 56pt/1.0em 'Baloo 2', cursive;
+        text-align: center;
+        color: var(--plum);
+        text-shadow: 3px 3px 0px var(--lavender);
+        margin: 0;
+        max-width: 100%;
+    }
+    p.intro {
+        text-align: center;
+        font: 600 15pt/1.5em 'Nunito', sans-serif;
+        color: var(--ink);
+        max-width: 620px;
+        margin: 8px auto 28px auto;
+    }
+    .scene {
+        --face-out: 1 1;
+        --face-back: -1 1;
+        --ponyo-w: clamp(120px, 26%, 220px);
+        position: relative;
+        width: 100%;
+        height: 420px;
+        overflow: hidden;
+        border-radius: 16px;
+        background: linear-gradient(180deg, #d9f0f7 0%, #9fd0e0 45%, #4f8fa6 100%);
+        box-shadow: 3px 5px 14px rgba(69, 50, 87, 0.3);
+    }
+    .scene::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 34px;
+        background: linear-gradient(180deg, #f1e2bd 0%, #e2cd9b 100%);
+        border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    }
+    .ponyo {
+        position: absolute;
+        top: 26%;
+        left: 0;
+        width: var(--ponyo-w);
+        height: auto;
+        animation: swim 16s ease-in-out infinite,
+                   bob 3s ease-in-out infinite alternate;
+    }
+    @keyframes swim {
+        0%   { left: 0;                              scale: var(--face-out); }
+        46%  { left: calc(100% - var(--ponyo-w));    scale: var(--face-out); }
+        50%  { left: calc(100% - var(--ponyo-w));    scale: var(--face-back); }
+        96%  { left: 0;                              scale: var(--face-back); }
+        100% { left: 0;                              scale: var(--face-out); }
+    }
+    @keyframes bob {
+        0%   { transform: translateY(0)     rotate(-2deg); }
+        100% { transform: translateY(-18px) rotate(2deg); }
+    }
+    .bubble {
+        position: absolute;
+        bottom: -20px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.45);
+        border: 1.5px solid rgba(255, 255, 255, 0.85);
+        animation: rise 7s ease-in infinite;
+    }
+    .bubble:nth-of-type(1) { left: 8%;  animation-duration: 7s;   animation-delay: 0s;   }
+    .bubble:nth-of-type(2) { left: 22%; animation-duration: 9s;   animation-delay: 2s;   width: 10px; height: 10px; }
+    .bubble:nth-of-type(3) { left: 38%; animation-duration: 6.5s; animation-delay: 4s;   width: 18px; height: 18px; }
+    .bubble:nth-of-type(4) { left: 55%; animation-duration: 8s;   animation-delay: 1s;   }
+    .bubble:nth-of-type(5) { left: 72%; animation-duration: 10s;  animation-delay: 3s;   width: 12px; height: 12px; }
+    .bubble:nth-of-type(6) { left: 90%; animation-duration: 7.5s; animation-delay: 5s;   width: 16px; height: 16px; }
+    @keyframes rise {
+        0%   { bottom: -20px;  opacity: 0;   transform: translateX(0); }
+        15%  { opacity: 1; }
+        50%  { transform: translateX(10px); }
+        85%  { opacity: 1; }
+        100% { bottom: 100%;   opacity: 0;   transform: translateX(-6px); }
+    }
+    .controls {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 14px 28px;
+        margin: 28px 0 0 0;
+    }
+    .controls .group {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+    .controls .label {
+        font: 700 9.5pt/1em 'Nunito', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        color: var(--plum);
+        margin-right: 4px;
+    }
+    .controls button {
+        font: 700 12.5pt/1em 'Nunito', sans-serif;
+        color: var(--periwinkle);
+        background: #f4eef7;
+        border: 2px solid transparent;
+        border-radius: 999px;
+        padding: 10px 22px;
+        cursor: pointer;
+        transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    }
+    .controls button:hover {
+        color: var(--plum);
+        border-color: var(--lavender);
+        transform: translateY(-2px);
+    }
+    .controls button:focus-visible {
+        outline: 3px solid var(--teal);
+        outline-offset: 2px;
+    }
+    .controls button[aria-pressed="true"] {
+        color: var(--paper);
+        background: var(--plum);
+        box-shadow: 2px 3px 0px var(--lavender);
+    }
+    .controls button.pause-btn {
+        min-width: 104px;
+        color: var(--paper);
+        background: var(--teal);
+        box-shadow: 2px 3px 0px var(--lavender);
+    }
+    .controls button.pause-btn:hover {
+        color: var(--paper);
+        border-color: var(--lavender);
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .ponyo, .bubble { animation: none; }
+        .ponyo { left: 50%; translate: -50% 0; }
+        .bubble { display: none; }
+        .controls { display: none; }
+    }
+    .signature-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        margin-top: auto;
+        padding-top: 40px;
+    }
+    .signature-row img {
+        height: 35px;
+        width: auto;
+        opacity: 0.85;
+    }
+    @media (max-width: 750px) {
+        :root { --pad: 20px; }
+        body { padding: 0; }
+        #page {
+            min-height: 0;
+            padding-bottom: 32px;
+            box-shadow: none;
+        }
+        .banner {
+            height: 150px;
+            margin-bottom: 24px;
+        }
+        nav.tabs {
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+        nav.tabs a {
+            font-size: 13pt;
+            padding: 12px 16px;
+        }
+        nav.tabs .dropdown-menu {
+            left: auto;
+            right: 0;
+            transform: translateY(-6px);
+        }
+        nav.tabs .dropdown:hover .dropdown-menu,
+        nav.tabs .dropdown:focus-within .dropdown-menu {
+            transform: translateY(0);
+        }
+        nav.tabs .dropdown-menu a {
+            padding: 14px 14px;
+        }
+        h1 {
+            font-size: 34pt;
+            line-height: 1.05em;
+            text-shadow: 2px 2px 0px var(--lavender);
+        }
+        p.intro {
+            font-size: 18pt;
+            line-height: 1.7em;
+            margin-bottom: 24px;
+        }
+        .scene {
+            --ponyo-w: clamp(100px, 34%, 170px);
+            height: 280px;
+            border-radius: 0;
+            width: calc(100% + 2 * var(--pad));
+            margin-left: calc(-1 * var(--pad));
+        }
+        .controls {
+            margin-top: 24px;
+        }
+        .controls button {
+            font-size: 13pt;
+            padding: 12px 18px;
+        }
+        .signature-row {
+            gap: 12px;
+            padding-top: 32px;
+        }
+        .signature-row img {
+            height: 28px;
+        }
+    }
+</style>
+</head>
+<body>
+<div id="page">
+    <div class="banner">
+        <img src="photo-by-Jeff-Biege.jpg" alt="Ocean waves crashing against shoreline!">
+    </div>
+    <nav class="tabs">
+        <a href="assignment1.html">Home</a>
+        <a href="assignment2.html">Video</a>
+        <div class="dropdown">
+            <a href="assignment4.html" class="dropdown-toggle">Portfolio</a>
+            <div class="dropdown-menu">
+                <a href="assignment4.html">Gallery View</a>
+                <a href="assignment5.html">Table View</a>
+                <a href="assignment6.html">Grid View</a>
+            </div>
+        </div>
+        <a href="assignment7.html">Contact Me!</a>
+        <div class="dropdown">
+            <a href="assignment8.html" class="dropdown-toggle active">Other</a>
+            <div class="dropdown-menu">
+                <a href="assignment8.html">Type Sample</a>
+                <a href="assignment9.html">Responsive Design</a>
+                <a href="assignment10.html">Animation</a>
+            </div>
+        </div>
+    </nav>
+    <h1>Swim, Ponyo, Swim</h1>
+    <p class="intro">Keep an eye out, Ponyo is on the move!</p>
+    <div class="scene">
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <span class="bubble"></span>
+        <img class="ponyo" src="ponyo.png" alt="Ponyo swimming">
+    </div>
+    <div class="controls">
+        <div class="group">
+            <button type="button" class="pause-btn" id="pauseBtn">Pause</button>
+        </div>
+        <div class="group" role="group" aria-label="Swimming speed">
+            <span class="label">Speed</span>
+            <button type="button" data-rate="0.5" aria-pressed="false">Slow</button>
+            <button type="button" data-rate="1"   aria-pressed="true">Normal</button>
+            <button type="button" data-rate="2.5" aria-pressed="false">Fast</button>
+            <button type="button" data-rate="5"   aria-pressed="false">Zoom!</button>
+        </div>
+    </div>
+    <div class="signature-row">
+        <img src="fishvector1.png" alt="Fish icon">
+        <img src="beetlevector1.png" alt="Beetle icon">
+        <img src="fishvector2.png" alt="Fish icon">
+        <img src="beetlevector2.png" alt="Beetle icon">
+        <img src="fishvector1.png" alt="Fish icon">
+        <img src="beetlevector1.png" alt="Beetle icon">
+        <img src="fishvector2.png" alt="Fish icon">
+        <img src="beetlevector2.png" alt="Beetle icon">
+    </div>
+</div>
+<script>
+    (function () {
+        var scene    = document.querySelector('.scene');
+        var pauseBtn = document.getElementById('pauseBtn');
+        var speedBtns = document.querySelectorAll('.controls button[data-rate]');
+        var rate   = 1;
+        var paused = false;
+        function applyToAll() {
+            scene.getAnimations({ subtree: true }).forEach(function (a) {
+                a.updatePlaybackRate(rate);
+                if (paused) { a.pause(); } else { a.play(); }
+            });
+        }
+        pauseBtn.addEventListener('click', function () {
+            paused = !paused;
+            pauseBtn.textContent = paused ? 'Play' : 'Pause';
+            applyToAll();
+        });
+        speedBtns.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                rate = parseFloat(btn.getAttribute('data-rate'));
+                speedBtns.forEach(function (b) {
+                    b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+                });
+                applyToAll();
+            });
+        });
+    })();
+</script>
+</body>
+</html>
