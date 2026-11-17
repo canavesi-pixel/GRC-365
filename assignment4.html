@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Portfolio</title>
+<link rel="icon" type="image/png" href="fishvector2.png">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
     @font-face {
@@ -49,12 +50,13 @@
     }
     nav.tabs {
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         gap: 12px;
         margin: 0 0 40px 0;
     }
     nav.tabs a {
-        font: 700 12.5pt/1em 'Nunito', sans-serif;
+        font: 700 12.5pt/1em 'Baloo 2', sans-serif;
         letter-spacing: 0.3px;
         text-decoration: none;
         color: var(--periwinkle);
@@ -259,20 +261,20 @@
     <div class="banner">
         <img src="photo-by-Jeff-Biege.jpg" alt="Ocean waves crashing against shoreline!">
     </div>
-      <nav class="tabs">
+    <nav class="tabs">
         <a href="assignment1.html">Home</a>
-        <a href="assignment2.html">Video</a>
         <div class="dropdown">
-            <a href="assignment4.html" class="active dropdown-toggle">Portfolio</a>
+            <a href="assignment12.html" class="dropdown-toggle active">Portfolio</a>
             <div class="dropdown-menu">
                 <a href="assignment4.html">Gallery View</a>
                 <a href="assignment5.html">Table View</a>
                 <a href="assignment6.html">Grid View</a>
             </div>
         </div>
+        <a href="assignment2.html">Video</a>
         <a href="assignment7.html">Contact Me!</a>
         <div class="dropdown">
-            <a href="assignment8.html" class="dropdown-toggle">Other</a>
+            <a href="assignment8.html" class="dropdown-toggle">Playground</a>
             <div class="dropdown-menu">
                 <a href="assignment8.html">Type Sample</a>
                 <a href="assignment9.html">Responsive Design</a>
