@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio</title>
+<link rel="icon" type="image/png" href="fishvector2.png">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --navy: #2c3968;
+        --plum: #453257;
+        --teal: #3f7686;
+        --periwinkle: #6f6f9c;
+        --lavender: #8f93c0;
+        --ink: #3d3a3f;
+        --paper: #fffdf9;
+        --pad: 64px;
+    }
+    * { box-sizing: border-box; }
+    body {
+        background: linear-gradient(160deg, #eef2f7 0%, #f4eef7 100%);
+        margin: 0;
+        padding: 48px 0;
+    }
+    img { max-width: 100%; height: auto; }
+    #page {
+        width: 100%;
+        max-width: 1024px;
+        min-height: 0;
+        background: var(--paper);
+        margin: 0 auto;
+        padding: 0 var(--pad) 64px var(--pad);
+        box-shadow: 5px 8px 20px rgba(45, 57, 104, 0.3), 0 0 0 1px rgba(45, 57, 104, 0.08);
+        display: flex;
+        flex-direction: column;
+    }
+    .banner {
+        width: calc(100% + 2 * var(--pad));
+        max-width: none;
+        height: 220px;
+        margin: 0 calc(-1 * var(--pad)) 40px calc(-1 * var(--pad));
+        overflow: hidden;
+    }
+    .banner img {
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    nav.tabs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        margin: 0 0 40px 0;
+        position: relative;
+        z-index: 50;
+    }
+    nav.tabs a {
+        font: 700 12.5pt/1em 'Baloo 2', sans-serif;
+        letter-spacing: 0.3px;
+        text-decoration: none;
+        color: var(--periwinkle);
+        background: #f4eef7;
+        padding: 10px 26px;
+        border-radius: 999px;
+        border: 2px solid transparent;
+        transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    nav.tabs a:hover {
+        color: var(--plum);
+        border-color: var(--lavender);
+    }
+    nav.tabs a.active {
+        color: var(--paper);
+        background: var(--plum);
+        box-shadow: 2px 3px 0px var(--lavender);
+    }
+    nav.tabs .dropdown {
+        position: relative;
+        display: flex;
+    }
+    nav.tabs .dropdown-toggle::after {
+        content: "";
+        display: inline-block;
+        margin-left: 10px;
+        vertical-align: middle;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 5px solid currentColor;
+        transition: transform 0.2s ease;
+    }
+    nav.tabs .dropdown:hover .dropdown-toggle::after,
+    nav.tabs .dropdown:focus-within .dropdown-toggle::after {
+        transform: rotate(180deg);
+    }
+    nav.tabs .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-6px);
+        min-width: 100%;
+        padding-top: 8px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+    }
+    nav.tabs .dropdown:hover .dropdown-menu,
+    nav.tabs .dropdown:focus-within .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+    nav.tabs .dropdown-menu a {
+        display: block;
+        text-align: center;
+        white-space: nowrap;
+        border-radius: 0;
+        padding: 12px 22px;
+        background: var(--paper);
+        color: var(--plum);
+        border: 2px solid #e3e0ee;
+        border-bottom-width: 1px;
+        box-shadow: none;
+    }
+    nav.tabs .dropdown-menu a:first-child { border-radius: 16px 16px 0 0; }
+    nav.tabs .dropdown-menu a:last-child  { border-radius: 0 0 16px 16px; border-bottom-width: 2px; }
+    nav.tabs .dropdown-menu a:hover {
+        background: #f4eef7;
+        border-color: var(--lavender);
+    }
+    nav.tabs .dropdown-menu a.current {
+        background: var(--plum);
+        color: var(--paper);
+    }
+    h1 {
+        font: 700 56pt/1.0em 'Baloo 2', cursive;
+        text-align: center;
+        color: var(--plum);
+        text-shadow: 3px 3px 0px var(--lavender);
+        margin: 0;
+        max-width: 100%;
+    }
+    p.intro {
+        text-align: center;
+        font: 600 15pt/1.5em 'Nunito', sans-serif;
+        color: var(--ink);
+        max-width: 620px;
+        margin: 8px auto 28px auto;
+    }
+    .highlight {
+        color: var(--teal);
+        font-weight: 700;
+    }
+    .stage {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 28px 36px;
+        padding: 36px 0 200px 0;
+    }
+    .bubble-wrap {
+        position: relative;
+        width: 220px;
+        height: 220px;
+        animation: float 6s ease-in-out infinite;
+    }
+    .bubble-wrap:nth-child(1) { animation-delay: 0s;    animation-duration: 6.4s; margin-top: 24px; }
+    .bubble-wrap:nth-child(2) { animation-delay: -2.1s; animation-duration: 5.6s; margin-top: 0; }
+    .bubble-wrap:nth-child(3) { animation-delay: -4s;   animation-duration: 7s;   margin-top: 40px; }
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50%      { transform: translateY(-16px); }
+    }
+    a.bubble {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        text-decoration: none;
+        text-align: center;
+        color: var(--paper);
+        font: 800 24pt/1em 'Baloo 2', cursive;
+        text-shadow: 2px 2px 0 rgba(44, 57, 104, 0.35);
+        box-shadow:
+            inset -10px -14px 26px rgba(44, 57, 104, 0.35),
+            inset 8px 10px 20px rgba(255, 255, 255, 0.25),
+            4px 8px 18px rgba(69, 50, 87, 0.3);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+        cursor: pointer;
+    }
+    a.bubble::before {
+        content: "";
+        position: absolute;
+        top: 12%;
+        left: 18%;
+        width: 34%;
+        height: 20%;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.55);
+        transform: rotate(-30deg);
+        filter: blur(1px);
+    }
+    a.bubble small {
+        display: block;
+        margin-top: 6px;
+        font: 700 11pt/1em 'Nunito', sans-serif;
+        letter-spacing: 0.4px;
+        opacity: 0.9;
+        text-shadow: none;
+    }
+    a.bubble.gallery { background: radial-gradient(circle at 40% 35%, var(--lavender) 0%, var(--periwinkle) 55%, var(--plum) 100%); }
+    a.bubble.table   { background: radial-gradient(circle at 40% 35%, #7fb1bd 0%, var(--teal) 55%, var(--navy) 100%); }
+    a.bubble.grid    { background: radial-gradient(circle at 40% 35%, #a3a6d1 0%, var(--navy) 60%, var(--plum) 100%); }
+    .bubble-wrap:hover a.bubble,
+    .bubble-wrap:focus-within a.bubble {
+        transform: scale(1.1);
+        box-shadow:
+            inset -10px -14px 26px rgba(44, 57, 104, 0.35),
+            inset 8px 10px 20px rgba(255, 255, 255, 0.3),
+            6px 12px 24px rgba(69, 50, 87, 0.38);
+    }
+    a.bubble:focus-visible {
+        outline: 4px solid var(--teal);
+        outline-offset: 6px;
+    }
+    .peek {
+        position: absolute;
+        top: calc(100% + 14px);
+        left: 50%;
+        width: 220px;
+        padding: 14px 16px 16px 16px;
+        background: var(--paper);
+        border: 2px solid var(--lavender);
+        border-radius: 16px;
+        box-shadow: 3px 5px 14px rgba(69, 50, 87, 0.3);
+        text-align: center;
+        font: 600 11.5pt/1.4em 'Nunito', sans-serif;
+        color: var(--ink);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateX(-50%) translateY(-8px);
+        transition: none;
+        z-index: 20;
+    }
+    .peek::before {
+        content: "";
+        position: absolute;
+        top: -9px;
+        left: 50%;
+        width: 14px;
+        height: 14px;
+        background: var(--paper);
+        border-left: 2px solid var(--lavender);
+        border-top: 2px solid var(--lavender);
+        transform: translateX(-50%) rotate(45deg);
+    }
+    .bubble-wrap:hover,
+    .bubble-wrap:focus-within {
+        z-index: 10;
+    }
+    .bubble-wrap:hover .peek,
+    .bubble-wrap:focus-within .peek {
+        transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+    .peek strong {
+        display: block;
+        font: 700 13pt/1.2em 'Baloo 2', cursive;
+        color: var(--plum);
+        margin-bottom: 4px;
+    }
+    .peek .thumbs {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 10px;
+    }
+    .peek .thumbs img {
+        width: 56px;
+        height: 56px;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 1px 2px 4px rgba(69, 50, 87, 0.3);
+    }
+    .peek .thumbs.rows {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+    .peek .thumbs.rows span {
+        display: block;
+        width: 100%;
+        height: 12px;
+        border-radius: 6px;
+        background: #f4eef7;
+    }
+    .peek .thumbs.rows span:nth-child(even) { background: #e3e0ee; }
+    .peek .thumbs.mini-table {
+        display: block;
+        margin-top: 10px;
+        border: 1.5px solid #e3e0ee;
+        border-radius: 8px;
+        overflow: hidden;
+        text-align: left;
+    }
+    .mt-row {
+        display: grid;
+        grid-template-columns: 22px 1fr 44px;
+        align-items: center;
+        gap: 5px;
+        padding: 2px 6px;
+        font: 600 8pt/1.2em 'Nunito', sans-serif;
+        white-space: nowrap;
+        color: var(--ink);
+    }
+    .mt-row:nth-child(even) { background: #f4eef7; }
+    .peek .thumbs.mini-table .mt-row img { width: 20px; height: 20px; border-radius: 4px; box-shadow: none; }
+    .mt-row span:nth-child(3) { color: var(--periwinkle); }
+    .mt-head {
+        background: var(--plum) !important;
+        color: var(--paper);
+        font: 700 8pt/1.2em 'Baloo 2', sans-serif;
+        letter-spacing: 0.4px;
+    }
+    .mt-head span:nth-child(3) { color: var(--paper); }
+    .peek .thumbs.mini-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 38px);
+        justify-content: center;
+        gap: 6px;
+    }
+    .peek .thumbs.mini-grid img { width: 38px; height: 38px; }
+    .tiny {
+        position: absolute;
+        border-radius: 50%;
+        border: 2px solid rgba(143, 147, 192, 0.7);
+        background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9) 0%, rgba(143, 147, 192, 0.18) 70%);
+        padding: 0;
+        cursor: pointer;
+        animation: float 5s ease-in-out infinite;
+        z-index: 1;
+    }
+    .tiny:nth-of-type(odd) { animation-duration: 6.5s; animation-delay: -1.5s; }
+    .tiny.t1 { width: 26px; height: 26px; left: 4%;  top: 6%; }
+    .tiny.t2 { width: 16px; height: 16px; left: 14%; top: 62%; }
+    .tiny.t3 { width: 34px; height: 34px; right: 5%; top: 12%; }
+    .tiny.t4 { width: 18px; height: 18px; right: 15%; top: 70%; }
+    .tiny.t5 { width: 22px; height: 22px; left: 46%; top: 2%; }
+    .tiny.t6 { width: 14px; height: 14px; right: 33%; top: 54%; }
+    .tiny:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+    .tiny.gone { visibility: hidden; }
+    a.bubble.popping {
+        animation: pop 0.42s ease-out forwards;
+        pointer-events: none;
+    }
+    @keyframes pop {
+        0%   { transform: scale(1.1); opacity: 1; }
+        35%  { transform: scale(1.32); opacity: 1; }
+        100% { transform: scale(1.6); opacity: 0; }
+    }
+    .bubble-wrap.popping-wrap .peek { opacity: 0; visibility: hidden; }
+    .droplet {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 14px;
+        height: 14px;
+        margin: -7px 0 0 -7px;
+        border-radius: 50%;
+        background: var(--c, var(--lavender));
+        pointer-events: none;
+        animation: spray 0.5s ease-out forwards;
+        z-index: 30;
+    }
+    @keyframes spray {
+        0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+        100% { transform: translate(var(--x), var(--y)) scale(0.2); opacity: 0; }
+    }
+    .signature-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        margin-top: auto;
+        padding-top: 40px;
+    }
+    .signature-row img {
+        height: 35px;
+        width: auto;
+        opacity: 0.85;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .bubble-wrap, .tiny { animation: none; }
+        a.bubble { transition: none; }
+    }
+    @media (max-width: 900px) and (min-width: 751px) {
+        .stage { gap: 28px 20px; padding-bottom: 205px; }
+        .bubble-wrap { width: 180px; height: 180px; }
+        a.bubble { font-size: 20pt; }
+        .peek { width: 200px; }
+    }
+    @media (max-width: 750px) {
+        :root { --pad: 20px; }
+        body { padding: 0; }
+        #page {
+            min-height: 0;
+            padding-bottom: 32px;
+            box-shadow: none;
+        }
+        .banner {
+            height: 150px;
+            margin-bottom: 24px;
+        }
+        nav.tabs {
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+        nav.tabs a {
+            font-size: 13pt;
+            padding: 12px 16px;
+        }
+        nav.tabs .dropdown-menu {
+            left: auto;
+            right: 0;
+            transform: translateY(-6px);
+        }
+        nav.tabs .dropdown:hover .dropdown-menu,
+        nav.tabs .dropdown:focus-within .dropdown-menu {
+            transform: translateY(0);
+        }
+        nav.tabs .dropdown-menu a { padding: 14px 14px; }
+        h1 {
+            font-size: 34pt;
+            line-height: 1.05em;
+            text-shadow: 2px 2px 0px var(--lavender);
+        }
+        p.intro {
+            font-size: 18pt;
+            line-height: 1.7em;
+            margin-bottom: 16px;
+        }
+        .stage {
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 24px 0 170px 0;
+        }
+        .bubble-wrap { width: 200px; height: 200px; margin-top: 0 !important; }
+        a.bubble { font-size: 22pt; }
+        .peek { width: 230px; }
+        .signature-row { gap: 12px; padding-top: 32px; }
+        .signature-row img { height: 28px; }
+    }
+</style>
+</head>
+<body>
+<div id="page">
+    <div class="banner">
+        <img src="photo-by-Jeff-Biege.jpg" alt="Ocean waves crashing against shoreline!">
+    </div>
+    <nav class="tabs">
+        <a href="assignment1.html">Home</a>
+        <div class="dropdown">
+            <a href="assignment12.html" class="dropdown-toggle active">Portfolio</a>
+            <div class="dropdown-menu">
+                <a href="assignment4.html">Gallery View</a>
+                <a href="assignment5.html">Table View</a>
+                <a href="assignment6.html">Grid View</a>
+            </div>
+        </div>
+        <a href="assignment2.html">Video</a>
+        <a href="assignment7.html">Contact Me!</a>
+        <div class="dropdown">
+            <a href="assignment8.html" class="dropdown-toggle">Playground</a>
+            <div class="dropdown-menu">
+                <a href="assignment8.html">Type Sample</a>
+                <a href="assignment9.html">Responsive Design</a>
+                <a href="assignment10.html">Animation</a>
+            </div>
+        </div>
+    </nav>
+    <h1>Portfolio</h1>
+    <p class="intro">Pick how you want to browse my work! Hover over a bubble for a <span class="highlight">peek</span>, then pop it to dive in.</p>
+    <section class="stage" id="stage" aria-label="Choose a portfolio view">
+        <button class="tiny t1" type="button" aria-label="Pop a little bubble"></button>
+        <button class="tiny t2" type="button" aria-label="Pop a little bubble"></button>
+        <button class="tiny t3" type="button" aria-label="Pop a little bubble"></button>
+        <button class="tiny t4" type="button" aria-label="Pop a little bubble"></button>
+        <button class="tiny t5" type="button" aria-label="Pop a little bubble"></button>
+        <button class="tiny t6" type="button" aria-label="Pop a little bubble"></button>
+        <div class="bubble-wrap">
+            <a class="bubble gallery" href="assignment4.html">Gallery<small>One at a Time</small></a>
+            <div class="peek" aria-hidden="true">
+                <strong>Gallery View</strong>
+                The original: big, close-up looks at each piece!
+                <div class="thumbs">
+                    <img src="lowres-self-portrait1.png" alt="">
+                    <img src="lowres-colorlandscape.png" alt="">
+                    <img src="lowres-treerender.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="bubble-wrap">
+            <a class="bubble table" href="assignment5.html">Table<small>The Full List</small></a>
+            <div class="peek" aria-hidden="true">
+                <strong>Table View</strong>
+                All nine pieces in one list!
+                <div class="thumbs mini-table">
+                    <div class="mt-row mt-head"><span></span><span>Title</span><span>Medium</span></div>
+                    <div class="mt-row"><img src="lowres-self-portrait1.png" alt=""><span>Self Portrait #1</span><span>Pastel</span></div>
+                    <div class="mt-row"><img src="lowres-frogrender.png" alt=""><span>Frog Render</span><span>Blender</span></div>
+                    <div class="mt-row"><img src="lowres-spookyrender.png" alt=""><span>Spooky Render</span><span>Blender</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="bubble-wrap">
+            <a class="bubble grid" href="assignment6.html">Grid<small>All at a Glance</small></a>
+            <div class="peek" aria-hidden="true">
+                <strong>Grid View</strong>
+                Every piece side by side!
+                <div class="thumbs mini-grid">
+                    <img src="lowres-frogrender.png" alt="">
+                    <img src="lowres-bunnyrender.png" alt="">
+                    <img src="lowres-sculpture.png" alt="">
+                    <img src="lowres-spookyrender.png" alt="">
+                    <img src="lowres-self-portrait2.png" alt="">
+                    <img src="lowres-unlikelyprotector.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="signature-row">
+        <img src="fishvector1.png" alt="Fish icon">
+        <img src="beetlevector1.png" alt="Beetle icon">
+        <img src="fishvector2.png" alt="Fish icon">
+        <img src="beetlevector2.png" alt="Beetle icon">
+        <img src="fishvector1.png" alt="Fish icon">
+        <img src="beetlevector1.png" alt="Beetle icon">
+        <img src="fishvector2.png" alt="Fish icon">
+        <img src="beetlevector2.png" alt="Beetle icon">
+    </div>
+</div>
+<script>
+    (function () {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var colors = ['#8f93c0', '#6f6f9c', '#3f7686', '#453257', '#2c3968'];
+        function spray(host) {
+            if (reduce) { return; }
+            for (var i = 0; i < 10; i++) {
+                var d = document.createElement('span');
+                d.className = 'droplet';
+                var angle = (Math.PI * 2 * i) / 10 + Math.random() * 0.4;
+                var dist = 90 + Math.random() * 50;
+                d.style.setProperty('--x', Math.cos(angle) * dist + 'px');
+                d.style.setProperty('--y', Math.sin(angle) * dist + 'px');
+                d.style.setProperty('--c', colors[i % colors.length]);
+                host.appendChild(d);
+            }
+        }
+        var wraps = document.querySelectorAll('.bubble-wrap');
+        for (var w = 0; w < wraps.length; w++) {
+            (function (wrap) {
+                var link = wrap.querySelector('a.bubble');
+                link.addEventListener('click', function (e) {
+                    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) { return; }
+                    e.preventDefault();
+                    var url = link.getAttribute('href');
+                    if (reduce) { window.location.href = url; return; }
+                    wrap.classList.add('popping-wrap');
+                    link.classList.add('popping');
+                    spray(wrap);
+                    setTimeout(function () { window.location.href = url; }, 430);
+                });
+            })(wraps[w]);
+        }
+        var tinies = document.querySelectorAll('.tiny');
+        for (var t = 0; t < tinies.length; t++) {
+            tinies[t].addEventListener('click', function () {
+                var b = this;
+                spray(b);
+                b.classList.add('gone');
+                setTimeout(function () { b.classList.remove('gone'); }, 4000);
+            });
+        }
+        window.addEventListener('pageshow', function () {
+            var popped = document.querySelectorAll('.popping, .popping-wrap');
+            for (var p = 0; p < popped.length; p++) {
+                popped[p].classList.remove('popping', 'popping-wrap');
+            }
+            var drops = document.querySelectorAll('.droplet');
+            for (var q = 0; q < drops.length; q++) { drops[q].remove(); }
+        });
+    })();
+</script>
+</body>
+</html>
