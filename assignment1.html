@@ -1,8 +1,35 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Get to Know Me!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antonella Canavesi | Graphic Design Student &amp; Seamstress</title>
+<meta name="description" content="Meet Antonella Canavesi, a graphic design major and seamstress interested in apparel design and video game visuals. Explore her portfolio and projects.">
+<meta name="keywords" content="Antonella Canavesi, graphic design, graphic design portfolio, apparel design, clothing design, seamstress, video game design, student portfolio">
+<meta name="author" content="Antonella Canavesi">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://canavesi-pixel.github.io/GRC-365/assignment1.html">
+<link rel="icon" type="image/png" href="fishvector2.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Antonella Canavesi | Graphic Design Student &amp; Seamstress">
+<meta property="og:description" content="Meet Antonella Canavesi, a graphic design major and seamstress interested in apparel design and video game visuals. Explore her portfolio and projects.">
+<meta property="og:url" content="https://canavesi-pixel.github.io/GRC-365/assignment1.html">
+<meta property="og:image" content="https://canavesi-pixel.github.io/GRC-365/GRCpicture.jpg">
+<meta property="og:image:alt" content="Portrait of Antonella Canavesi">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Antonella Canavesi | Graphic Design Student &amp; Seamstress">
+<meta name="twitter:description" content="Meet Antonella Canavesi, a graphic design major and seamstress interested in apparel design and video game visuals. Explore her portfolio and projects.">
+<meta name="twitter:image" content="https://canavesi-pixel.github.io/GRC-365/GRCpicture.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Antonella Canavesi",
+  "url": "https://canavesi-pixel.github.io/GRC-365/assignment1.html",
+  "image": "https://canavesi-pixel.github.io/GRC-365/GRCpicture.jpg",
+  "description": "Senior graphic design major and seamstress interested in apparel design and video game visuals."
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
     @font-face {
@@ -17,26 +44,31 @@
         --lavender: #8f93c0;
         --ink: #3d3a3f;
         --paper: #fffdf9;
+        --pad: 64px;
     }
+    * { box-sizing: border-box; }
+    img { max-width: 100%; }
     body {
         background: linear-gradient(160deg, #eef2f7 0%, #f4eef7 100%);
         margin: 0;
         padding: 48px 0;
     }
     #page {
-        width: 1024px;          
+        width: 100%;
+        max-width: 1024px;
         min-height: 1224px;
         background: var(--paper);
         margin: 0 auto;
-        padding: 0 64px 64px 64px;
+        padding: 0 var(--pad) 64px var(--pad);
         box-sizing: border-box;
         box-shadow: 5px 8px 20px rgba(45, 57, 104, 0.3), 0 0 0 1px rgba(45, 57, 104, 0.08);
         overflow: hidden;
     }
     .banner {
-        width: calc(100% + 128px);
+        width: calc(100% + 2 * var(--pad));
+        max-width: none;
         height: 220px;
-        margin: 0 -64px 40px -64px;
+        margin: 0 calc(-1 * var(--pad)) 40px calc(-1 * var(--pad));
         overflow: hidden;
     }
     .banner img {
@@ -72,12 +104,13 @@
     }
     nav.tabs {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 12px;
     margin: 0 0 40px 0;
 }
 nav.tabs a {
-    font: 700 12.5pt/1em 'Nunito', sans-serif;
+    font: 700 12.5pt/1em 'Baloo 2', sans-serif;
     letter-spacing: 0.3px;
     text-decoration: none;
     color: var(--periwinkle);
@@ -184,6 +217,23 @@ nav.tabs a.active {
         border-radius: 20px;
         box-shadow: 4px 6px 14px rgba(69, 50, 87, 0.3);
     }
+    @media (max-width: 750px) {
+        :root { --pad: 20px; }
+        body { padding: 0; }
+        #page { min-height: 0; box-shadow: none; }
+        .banner { height: 150px; margin-bottom: 24px; }
+        nav.tabs { gap: 8px; margin-bottom: 28px; }
+        nav.tabs a { font-size: 13pt; padding: 12px 16px; }
+        nav.tabs .dropdown-menu { left: auto; right: 0; transform: translateY(-6px); }
+        nav.tabs .dropdown:hover .dropdown-menu,
+        nav.tabs .dropdown:focus-within .dropdown-menu { transform: translateY(0); }
+        nav.tabs .dropdown-menu a { padding: 14px 14px; }
+        h1 { font-size: 34pt; line-height: 1.05em; text-shadow: 2px 2px 0px var(--lavender); }
+        h2 { font-size: 13pt; }
+        .icon-row { gap: 14px; margin-bottom: 24px; }
+        p { font-size: 17pt; line-height: 1.7em; }
+        img.portrait { float: none; display: block; width: 100%; max-width: 350px; margin: 6px auto 20px auto; }
+    }
 </style>
 </head>
 <body>
@@ -193,18 +243,18 @@ nav.tabs a.active {
     </div>
     <nav class="tabs">
         <a href="assignment1.html" class="active">Home</a>
-        <a href="assignment2.html">Video</a>
         <div class="dropdown">
-            <a href="assignment4.html" class="dropdown-toggle">Portfolio</a>
+            <a href="assignment12.html" class="dropdown-toggle">Portfolio</a>
             <div class="dropdown-menu">
                 <a href="assignment4.html">Gallery View</a>
                 <a href="assignment5.html">Table View</a>
                 <a href="assignment6.html">Grid View</a>
             </div>
         </div>
+        <a href="assignment2.html">Video</a>
         <a href="assignment7.html">Contact Me!</a>
         <div class="dropdown">
-            <a href="assignment8.html" class="dropdown-toggle">Other</a>
+            <a href="assignment8.html" class="dropdown-toggle">Playground</a>
             <div class="dropdown-menu">
                 <a href="assignment8.html">Type Sample</a>
                 <a href="assignment9.html">Responsive Design</a>
@@ -212,19 +262,21 @@ nav.tabs a.active {
             </div>
         </div>
     </nav>
+    <main>
     <h1>Get to Know Me!</h1>
     <h2>Graphic Design Major &nbsp;&middot;&nbsp; Seamstress</h2>
     <div class="icon-row">
-        <img src="beetlevector1.png" alt="Beetle icon">
-        <img src="fishvector1.png" alt="Fish icon">
-        <img src="beetlevector2.png" alt="Beetle icon">
-        <img src="fishvector2.png" alt="Fish icon">
-        <img src="beetlevector1.png" alt="Beetle icon">
+        <img src="beetlevector1.png" alt="Illustrated beetle icon">
+        <img src="fishvector1.png" alt="Illustrated fish icon">
+        <img src="beetlevector2.png" alt="Illustrated beetle icon">
+        <img src="fishvector2.png" alt="Illustrated fish icon">
+        <img src="beetlevector1.png" alt="Illustrated beetle icon">
     </div>
-    <img class="portrait" src="GRCpicture.jpg" alt="Photo of Antonella">
+    <img class="portrait" src="GRCpicture.jpg" alt="Portrait of Antonella Canavesi, a graphic design major and seamstress">
     <p class="bio">Hello everyone, my name is Antonella! I am currently a senior majoring in graphic design. Despite design being my main area of study, I've also become interested in exploring other creative paths, mostly because I like trying different things and don't see myself sticking to just one area of expertise.</p>
     <p class="bio">That said, one of my biggest interests is clothing and apparel design, and I'd love to explore creating my own clothing or designing for a brand someday. One brand I religiously follow is Steady Hands (feel free to check them out!), and I would love to create something with a similarly distinct identity of my own. At the same time, I also love the idea of having a hand in designing video games, whether that means working on visuals, concepts, etc. I'm still figuring out where I want my career to take me, but for now, I'm happy to keep my options open and see which creative interests stick with me along the way.</p>
-    <p class="bio">If you'd like to see some of the work I've created in the past, I've put together a small collection of projects <a class="portfolio-link" href="https://drive.google.com/drive/folders/1sOCMRAA78WRi3089ihxTiuGzL01XuVtB?usp=sharing" target="_blank">here</a>. It isn't necessarily a professional portfolio, but it includes a few creative pieces and projects from previous classes that I wanted to share!</p>
+    <p class="bio">If you'd like to see some of the work I've created in the past, I've put together <a class="portfolio-link" href="https://drive.google.com/drive/folders/1sOCMRAA78WRi3089ihxTiuGzL01XuVtB?usp=sharing" target="_blank" rel="noopener noreferrer">a small collection of projects</a>. It isn't necessarily a professional portfolio, but it includes a few creative pieces and projects from previous classes that I wanted to share!</p>
+    </main>
 </div>
 </body>
 </html>
